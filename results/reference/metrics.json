@@ -21,14 +21,14 @@
     "raw_rmse_m": 0.139739032011428,
     "filtered_rmse_m": 0.0776535216825047,
     "latency_median_us": 0.7,
-    "latency_p95_us": 0.8,
+    "latency_p95_us": 1.0,
     "lost_frames": 8
   },
   "synthetic_scan": {
     "frames": 120,
     "frames_with_detections": 115,
-    "median_us": 8.0,
-    "p95_us": 14.849999999999998,
+    "median_us": 7.7,
+    "p95_us": 13.4,
     "model": "synthetic-only demo model"
   }
 }

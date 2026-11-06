@@ -1,0 +1,14 @@
+{
+  "verified_date": "2026-11-07",
+  "tested_code_commit": "bba7a75d693c6ff6d7e614be07aa6de93d989af2",
+  "workflow_url": "https://github.com/Aoisora732/ros-leg-tracking/actions/runs/42302169742",
+  "conclusion": "success",
+  "windows_msvc_release_unit_tests": 32,
+  "ubuntu_22_04_release_unit_tests": 32,
+  "ubuntu_22_04_asan_ubsan_unit_tests": 32,
+  "ubuntu_20_04_ros_noetic_unit_tests": 32,
+  "ros_noetic_integration_tests": 1,
+  "ros_integration_scenarios": ["valid target", "empty scan", "missing transform", "near obstacle", "stale input"],
+  "new_physical_robot_tests": false,
+  "note": "Documentation and reference timing synchronization after this commit do not change the tested implementation."
+}
