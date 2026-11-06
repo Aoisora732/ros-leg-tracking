@@ -1,0 +1,8 @@
+<launch>
+  <node pkg="tf2_ros" type="static_transform_publisher" name="odom_base" args="0 0 0 0 0 0 odom base_link"/>
+  <node pkg="tf2_ros" type="static_transform_publisher" name="base_laser" args="0 0 0 0 0 0 base_link laser"/>
+  <node pkg="ros_leg_tracking" type="leg_tracking_node" name="leg_tracking">
+    <param name="model" value="$(find ros_leg_tracking)/config/demo_nb.txt"/>
+  </node>
+  <test pkg="ros_leg_tracking" type="ros_integration.py" name="integration" time-limit="40"/>
+</launch>

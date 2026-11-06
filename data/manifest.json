@@ -1,0 +1,31 @@
+{
+  "method": "Original segment-index annotations; recompute C++ feature schema V1.",
+  "sequences": [
+    {
+      "directory": "data",
+      "split": "train",
+      "frames": 127,
+      "nonleg": 1770,
+      "leg": 365,
+      "skipped_segments": 0,
+      "duplicate_frames_excluded": 0,
+      "source_sha256": {
+        "point.mat": "b400ae2431621f888e9eef8e59acd928107b6c6ba92e349d493e7c0871481873",
+        "seg.mat": "05d91c131b337219ded12a57952cfb743042b515719a763cfa10f75a92cd552f"
+      }
+    },
+    {
+      "directory": "data0106",
+      "split": "test",
+      "frames": 489,
+      "nonleg": 7662,
+      "leg": 1038,
+      "skipped_segments": 0,
+      "duplicate_frames_excluded": 0,
+      "source_sha256": {
+        "point.mat": "d8f9c2ec455a1287f7390070157775810b52ba49fe7ea09f1da1a302da856268",
+        "seg.mat": "b5d61818b2feb1d0e35ac7e641302dc989cf84bf005b2d13cab1e8ad76603290"
+      }
+    }
+  ]
+}

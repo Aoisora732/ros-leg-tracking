@@ -1,0 +1,9 @@
+<launch>
+  <arg name="model" default="$(find ros_leg_tracking)/config/historical_nb.txt"/>
+  <node pkg="ros_leg_tracking" type="leg_tracking_node" name="leg_tracking" output="screen">
+    <param name="model" value="$(arg model)"/>
+    <param name="tracking_frame" value="odom"/>
+    <param name="base_frame" value="base_link"/>
+    <param name="command_topic" value="cmd_vel_preview"/>
+  </node>
+</launch>

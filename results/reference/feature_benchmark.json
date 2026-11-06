@@ -1,0 +1,1 @@
+{"scope":"equivalent feature computation twice vs cached once; not original binary","segments_per_round":3000,"rounds":21,"duplicate_median_ms":12.5099,"cached_median_ms":6.3042,"reduction_percent":49.6063,"checksum":15840}

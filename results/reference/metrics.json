@@ -1,0 +1,34 @@
+{
+  "environment": "Windows-11-10.0.26200-SP0",
+  "data_scope": "Historical sequence holdout and synthetic scenarios; no new hardware evaluation.",
+  "classification": {
+    "fit_segments": 1311,
+    "validation_segments": 636,
+    "test_segments": 8700,
+    "tp": 913,
+    "fp": 1014,
+    "fn": 125,
+    "tn": 6648,
+    "precision": 0.4737934613388687,
+    "recall": 0.8795761078998073,
+    "f1": 0.6158516020236088,
+    "threshold": 13.041393784584137
+  },
+  "tracking": {
+    "seed": 732,
+    "frames": 400,
+    "scored_frames": 376,
+    "raw_rmse_m": 0.139739032011428,
+    "filtered_rmse_m": 0.0776535216825047,
+    "latency_median_us": 0.7,
+    "latency_p95_us": 0.8,
+    "lost_frames": 8
+  },
+  "synthetic_scan": {
+    "frames": 120,
+    "frames_with_detections": 115,
+    "median_us": 8.0,
+    "p95_us": 14.849999999999998,
+    "model": "synthetic-only demo model"
+  }
+}

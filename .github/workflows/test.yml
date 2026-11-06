@@ -1,0 +1,33 @@
+name: C++ and ROS Noetic verification
+on: [push, workflow_dispatch]
+jobs:
+  core:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update && sudo apt-get install -y libeigen3-dev libgtest-dev python3-numpy python3-matplotlib
+      - run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build -j2 && ctest --test-dir build --output-on-failure
+      - run: python3 tools/evaluate.py --exe build/leg_cli --output results/local
+      - run: build/feature_benchmark > results/local/feature_benchmark.json
+      - run: cmake -S . -B build-san -DCMAKE_BUILD_TYPE=Debug -DENABLE_SANITIZERS=ON && cmake --build build-san -j2 && ctest --test-dir build-san --output-on-failure
+      - uses: actions/upload-artifact@v4
+        with:
+          name: offline-results
+          path: results/local
+  noetic:
+    runs-on: ubuntu-22.04
+    container: ros:noetic-ros-base-focal
+    steps:
+      - uses: actions/checkout@v4
+      - run: apt-get update && apt-get install -y build-essential cmake libeigen3-dev libgtest-dev ros-noetic-rostest ros-noetic-tf2-geometry-msgs
+      - shell: bash
+        run: |
+          source /opt/ros/noetic/setup.bash
+          mkdir -p /tmp/ws/src
+          ln -s "$GITHUB_WORKSPACE" /tmp/ws/src/ros_leg_tracking
+          cd /tmp/ws
+          catkin_make -DBUILD_ROS=ON -DCMAKE_BUILD_TYPE=Release
+          cd build/ros_leg_tracking
+          ctest --output-on-failure
+          source /tmp/ws/devel/setup.bash
+          rostest ros_leg_tracking integration.test
