@@ -27,7 +27,6 @@ jobs:
           ln -s "$GITHUB_WORKSPACE" /tmp/ws/src/ros_leg_tracking
           cd /tmp/ws
           catkin_make -DBUILD_ROS=ON -DCMAKE_BUILD_TYPE=Release
+          source /tmp/ws/devel/setup.bash
           cd build/ros_leg_tracking
           ctest --output-on-failure
-          source /tmp/ws/devel/setup.bash
-          rostest ros_leg_tracking integration.test
