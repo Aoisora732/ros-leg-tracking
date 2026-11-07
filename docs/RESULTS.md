@@ -1,12 +1,12 @@
 # 測試與實驗結果
 
-本版於 2026-11-07 在 Windows 11、MSVC 19.44 Release 建置驗證。原始 JSON 與 CSV 位於 `results/reference/`；他機耗時可能不同。
+專案背景：2019 年「機器人感知估測」課程期末專案。本文記錄公開實作的驗證；執行環境為 Windows 11、MSVC 19.44 Release，實際執行日期保存在 `results/verification.json` 與 CI 紀錄。原始 JSON 與 CSV 位於 `results/reference/`；他機耗時可能不同。
 
 ## 模組測試
 
 32 項 GoogleTest 單元測試全數通過，涵蓋前處理、分段、特徵、座標轉換、模型訓練／校準／存取、資料關聯、Kalman filter、追蹤狀態、跟隨控制及停止條件。另於 Ubuntu 20.04／ROS Noetic 容器實際完成 catkin 建置、32 項單元測試與 1 項包含多種失效情境的 rostest，全部通過。本機沒有 ROS 安裝，Noetic 驗證由 GitHub Actions 執行。
 
-驗證程式版本：`bba7a75d693c6ff6d7e614be07aa6de93d989af2`。可查閱[完整執行紀錄](https://github.com/Aoisora732/ros-leg-tracking/actions/runs/42302169742)。Ubuntu 22.04 的獨立核心、離線評估及 AddressSanitizer／UBSan 亦全部通過；後續文件更新不改變該版本的程式碼。機器可讀摘要位於 `results/verification.json`。
+驗證程式版本：`bba7a75d693c6ff6d7e614be07aa6de93d989af2`。可查閱[完整執行紀錄](https://github.com/Aoisora732/ros-leg-tracking/actions/runs/42302169742)。Ubuntu 22.04 的獨立核心、離線評估及 AddressSanitizer／UBSan 亦全部通過；文件更新不改變該版本的程式碼。機器可讀摘要位於 `results/verification.json`。
 
 ## 分類模型
 
@@ -35,11 +35,10 @@
 
 ## 特徵運算效能
 
-以相同正確特徵實作比較重算兩次與重用一次，交錯順序 21 輪，每輪 3,000 個區段，檢查輸出 checksum 一致。中位時間 12.5099 ms → 6.3042 ms，減少 49.61%。這是重複工作消除的局部對照，不是原始程式與新版的端到端比較。
+以相同正確特徵實作比較重算兩次與重用一次，交錯順序 21 輪，每輪 3,000 個區段，檢查輸出 checksum 一致。中位時間 12.5099 ms → 6.3042 ms，減少 49.61%。這是重複工作消除的局部對照，不代表完整系統的端到端比較。
 
 追蹤／控制的單幀中位耗時 0.7 微秒、P95 1.0 微秒；稀疏合成掃描流程中位耗時 7.7 微秒、P95 13.4 微秒。這些不含 I/O、ROS 與底盤延遲；微秒級數據受計時器與系統負載影響，不作即時系統保證。
 
 ## 已知限制
 
 沒有新實機測試、沒有完整避障、沒有多人身份追蹤、沒有雷射束去畸變。標註資料仍需人工審核與更多負樣本。核心的固定尺寸狀態與局部容器避免持續保存歷史掃描，但未提供多日實機記憶體穩定性證據。
-

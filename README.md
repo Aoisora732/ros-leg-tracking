@@ -1,8 +1,8 @@
 # ROS 腿部追蹤與跟隨
 
-機器人感知估測課程的期末專案。
+2019 年（108 學年度第一學期）「機器人感知估測」課程期末專案。
 
-以原課程的 **掃描分段 → 九項幾何特徵 → Gaussian Naive Bayes → 單目標 Kalman 追蹤 → 跟隨控制** 架構為基礎，完成資料介面、數值運算、資源管理與失效處理的後續改進。核心使用 C++14／Eigen，整合介面以 **ROS Noetic** 為目標。
+系統採用 **掃描分段 → 九項幾何特徵 → Gaussian Naive Bayes → 單目標 Kalman 追蹤 → 跟隨控制** 架構。本文說明專案設計與公開程式的驗證方式；公開實作使用 C++14／Eigen，整合介面以 **ROS Noetic** 為目標。
 
 ![追蹤結果](results/reference/tracking.png)
 
@@ -49,7 +49,7 @@ roslaunch ros_leg_tracking offline.launch
 
 `offline.launch` 等待 `/scan` 與有效的 TF；它不會自行產生掃描。整合測試會啟動固定機器人的 TF 與合成雷射來源。歷史 rosbag 回放時，先設定 `/use_sim_time=true`，再使用 `rosbag play --clock`，並確保 bag 或外部節點提供相應的 TF。
 
-速度預設發布至 **`cmd_vel_preview`**。只有明確修改 `command_topic` 才會送至其他 topic。本專案的新版沒有進行實機驗證；上車前需核對雷射外參、底盤方向及底盤端命令逾時停止。預覽停止保護不等同完整碰撞避免。
+速度預設發布至 **`cmd_vel_preview`**。只有明確修改 `command_topic` 才會送至其他 topic。公開實作的驗證範圍不包含實機測試；上車前需核對雷射外參、底盤方向及底盤端命令逾時停止。預覽停止保護不等同完整碰撞避免。
 
 ## 模組與改善
 
@@ -67,7 +67,7 @@ roslaunch ros_leg_tracking offline.launch
 
 - `data/train_features.txt`：原課程 `data` 序列的 127 幀、2,135 個標註區段。
 - `data/test_features.txt`：原課程 `data0106` 序列的 489 幀、8,700 個標註區段。
-- 特徵由本版 C++ 程式重新計算；完整掃描與 MATLAB 原始檔不放入公開庫。資料來源雜湊與轉換工具一併提供。
+- 特徵由共用 C++ 特徵程式重新計算；完整掃描與 MATLAB 原始檔不放入公開庫。資料來源雜湊與轉換工具一併提供。
 - 不同目錄作為序列切分，已排除完全相同影格；無法據此保證原錄製場景或人員彼此獨立。
 - 真實資料的分類結果仍有誤判，詳見[實驗報告](docs/RESULTS.md)。合成 demo 模型與歷史資料模型分開，不互相冒充實際準確率。
 - 追蹤圖使用已知真值的合成位置量測；掃描圖使用圓形物體的 ray-cast 模擬。跟隨命令圖是開迴路預覽，沒有底盤動力學，也沒有實機跟隨成功率。
@@ -81,4 +81,3 @@ roslaunch ros_leg_tracking offline.launch
 - [來源說明](NOTICE.md)
 
 GitHub Actions 會驗證 Linux 核心、記憶體／未定義行為檢查及 ROS Noetic 建置與整合測試。Noetic 已停止官方維護，本專案仍依課程技術脈絡使用它。
-
